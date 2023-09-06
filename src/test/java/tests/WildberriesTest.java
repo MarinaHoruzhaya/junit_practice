@@ -1,3 +1,5 @@
+package tests;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -12,12 +14,10 @@ import static com.codeborne.selenide.Condition.text;
 import static com.codeborne.selenide.Selenide.$;
 import static com.codeborne.selenide.Selenide.open;
 
-public class WildberriesTest {
+public class WildberriesTest extends TestBase {
 
     @BeforeEach
-    void setUp(){
-        open("https://www.wildberries.by/");
-    }
+    void setUp(){ open("https://www.wildberries.by/");}
 
     @DisplayName("Проверка поиска канцелярских товаров на сайте Wildberries")
     @ValueSource( strings = {"Ручка","Карандаш"})
@@ -55,7 +55,7 @@ public class WildberriesTest {
         );
     }
 
-    @MethodSource
+    @MethodSource("searchResultFilterDisplayed")
     @ParameterizedTest(name = "При поиске товара {0} в предложенный товарах отображаются {1}")
     void searchResultFilterDisplayed(String product,String anotherProducts){
         $("input[type='text']").click();
